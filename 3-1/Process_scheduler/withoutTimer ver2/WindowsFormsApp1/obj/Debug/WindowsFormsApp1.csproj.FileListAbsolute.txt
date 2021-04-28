@@ -1,0 +1,28 @@
+C:\Users\오차영\source\repos\WindowsFormsApp1\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.csprojAssemblyReference.cache
+C:\Users\오차영\source\repos\WindowsFormsApp1\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.Form1.resources
+C:\Users\오차영\source\repos\WindowsFormsApp1\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.csproj.GenerateResource.cache
+C:\Users\오차영\source\repos\WindowsFormsApp1\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.csproj.CoreCompileInputs.cache
+C:\Users\오차영\source\repos\WindowsFormsApp1\WindowsFormsApp1\bin\Debug\withoutTimer2.exe.config
+C:\Users\오차영\source\repos\WindowsFormsApp1\WindowsFormsApp1\bin\Debug\withoutTimer2.exe.manifest
+C:\Users\오차영\source\repos\WindowsFormsApp1\WindowsFormsApp1\bin\Debug\withoutTimer2.application
+C:\Users\오차영\source\repos\WindowsFormsApp1\WindowsFormsApp1\bin\Debug\withoutTimer2.exe
+C:\Users\오차영\source\repos\WindowsFormsApp1\WindowsFormsApp1\bin\Debug\withoutTimer2.pdb
+C:\Users\오차영\source\repos\WindowsFormsApp1\WindowsFormsApp1\obj\Debug\withoutTimer2.exe.manifest
+C:\Users\오차영\source\repos\WindowsFormsApp1\WindowsFormsApp1\obj\Debug\withoutTimer2.application
+C:\Users\오차영\source\repos\WindowsFormsApp1\WindowsFormsApp1\obj\Debug\withoutTimer2.exe
+C:\Users\오차영\source\repos\WindowsFormsApp1\WindowsFormsApp1\obj\Debug\withoutTimer2.pdb
+C:\Users\오차영\source\repos\WindowsFormsApp1\WindowsFormsApp1\obj\Debug\withoutTimer.Properties.Resources.resources
+C:\Users\오차영\source\repos\withoutTimer ver2\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.csprojAssemblyReference.cache
+C:\Users\오차영\source\repos\withoutTimer ver2\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.Form1.resources
+C:\Users\오차영\source\repos\withoutTimer ver2\WindowsFormsApp1\obj\Debug\withoutTimer.Properties.Resources.resources
+C:\Users\오차영\source\repos\withoutTimer ver2\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.csproj.GenerateResource.cache
+C:\Users\오차영\source\repos\withoutTimer ver2\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.csproj.CoreCompileInputs.cache
+C:\Users\오차영\source\repos\withoutTimer ver2\WindowsFormsApp1\bin\Debug\withoutTimer_Lastversion.exe.config
+C:\Users\오차영\source\repos\withoutTimer ver2\WindowsFormsApp1\bin\Debug\withoutTimer_Lastversion.exe.manifest
+C:\Users\오차영\source\repos\withoutTimer ver2\WindowsFormsApp1\bin\Debug\withoutTimer_Lastversion.application
+C:\Users\오차영\source\repos\withoutTimer ver2\WindowsFormsApp1\bin\Debug\withoutTimer_Lastversion.exe
+C:\Users\오차영\source\repos\withoutTimer ver2\WindowsFormsApp1\bin\Debug\withoutTimer_Lastversion.pdb
+C:\Users\오차영\source\repos\withoutTimer ver2\WindowsFormsApp1\obj\Debug\withoutTimer_Lastversion.exe.manifest
+C:\Users\오차영\source\repos\withoutTimer ver2\WindowsFormsApp1\obj\Debug\withoutTimer_Lastversion.application
+C:\Users\오차영\source\repos\withoutTimer ver2\WindowsFormsApp1\obj\Debug\withoutTimer_Lastversion.exe
+C:\Users\오차영\source\repos\withoutTimer ver2\WindowsFormsApp1\obj\Debug\withoutTimer_Lastversion.pdb

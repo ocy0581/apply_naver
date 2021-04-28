@@ -1,0 +1,160 @@
+﻿/**
+ * 작성자 : 정형준
+ * 내용   : RR알고리즘의 구현
+ * 1차 수정 보고 : 112줄 ~ 113줄 모든 프로세스의 arrivalTime이 같은 경우를 대비함
+ *               + 126~133줄 for문 추가 // rrTime이 끝나서 dyprocess의 배열 순서가 뒤바뀔때 curretprocess[]안의 내용물도 배열 순서가 뒤바뀌는 것을 고려하여 수정
+ *
+ * 2차 수정 보고 : 46줄 조건에 chekingArr[0] == 0 조건 삭제
+ */
+import java.util.Arrays;
+
+public class Rr extends Scheduler  {
+
+    @Override
+    public void scheduling(Process[] process, int processorCount, int rrNum) {
+        int maxTime = 100;
+        Process[] dyProcess = process.clone();
+        Process[] returnProcess = process.clone();
+        int[] checkingArr = new int [dyProcess.length]; //이번 시간동안 해당 프로세서가 일을 했는지 안했는지 체크
+
+        for(int i=0; i<dyProcess.length;i++) {
+            dyProcess[i].dyburstTime = dyProcess[i].burstTime;
+            dyProcess[i].rrTime = rrNum;
+            dyProcess[i].dyArrivalTime = dyProcess[i].arrivalTime;
+        }
+        Arrays.sort(dyProcess);//도착시간을 기준으로 정렬
+        int[] currentProcess = new int [4]; // 현제 프로세서가 동작중인 프로세스의 id를 저장하는 배열
+        for(int i=0; i<4; i++)
+            currentProcess[i] = -1;
+        int check = 0;//처리해야할 프로세서가 없을 경우 종료를 위한 변수
+
+        for(int time=0;time<maxTime && check==0 ;time++){
+            endTime=time;
+            Arrays.fill(checkingArr,0);
+            for(int processor = 0; processor<processorCount; processor++) {
+
+                int trash = 0;//계산이 끝난 프로세서의 개수
+                for (int i = 0; i < dyProcess.length; i++)
+                    if (dyProcess[i].arrivalTime == 9999)
+                        trash++;
+                if (trash == dyProcess.length) {check =1;break;}//모든 프로세서 처리 완료 상태
+
+                int ar[] = new int[dyProcess.length];//현제 살아있는 프로세서가 있는 칸은 1 / 죽어있는 프로세서는 0
+                for (int i = 0; i < processorCount; i++)
+                    if (currentProcess[i] != -1)
+                        ar[currentProcess[i]] = 1;
+
+                if (currentProcess[processor] == -1) {
+                    int currentMax = Math.max(currentProcess[0], Math.max(currentProcess[1], Math.max(currentProcess[2], currentProcess[3])));//맨 처음일 경우
+                    if (currentMax == -1 && time >= dyProcess[0].dyArrivalTime ) {
+                        currentProcess[processor] = 0;
+                    }
+                    else {
+                        for (int i = 0; i < dyProcess.length; i++) {//일할 프로세스 탐색
+                            if (checkingArr[i] == 0 && ar[i] == 0 && dyProcess[i].dyArrivalTime <= time && dyProcess[i].arrivalTime < 9999) {
+                                currentProcess[processor] = i;
+                                break;
+                            }
+                        }
+                    }
+                }
+
+
+
+                if(currentProcess[processor] == -1 ) continue;//그럼에도 해당 프로세서가 없다면 할만한 프로세서가 없다는 뜻
+                if(dyProcess[currentProcess[processor]].processId == -1)    continue;
+                if (checkingArr[dyProcess[currentProcess[processor]].processId - 1] > 0)    continue;
+
+                if(dyProcess[currentProcess[processor]].dyArrivalTime <= time){//한 프로세스의 일이 끝났다면
+                    scheduledProcess[processor][time] = dyProcess[currentProcess[processor]].processId;
+                    dyProcess[currentProcess[processor]].dyburstTime--;
+                    dyProcess[currentProcess[processor]].rrTime--;
+                    checkingArr[dyProcess[currentProcess[processor]].processId - 1]++;
+
+/*
+                    System.out.println("time = "+ time +"   / 프로세서 :" + processor+ " / id : "+ dyProcess[currentProcess[processor]].processId + "  dybur : "+dyProcess[currentProcess[processor]].dyburstTime);
+                    System.out.println("rrtime : " + dyProcess[currentProcess[processor]].rrTime+ " /  currentpr[pro] : "+currentProcess[processor]);
+                    for(int i=0; i<dyProcess.length; i++)
+                        System.out.print(dyProcess[i].processId+" ");
+                    System.out.println("");
+                    for(int i=0; i<dyProcess.length; i++)
+                        System.out.print(checkingArr[i]+" ");
+                    System.out.println(" ");
+                    for(int i=0; i<4; i++)
+                        System.out.printf(currentProcess[i]+" ");
+                    System.out.println("\nㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ");
+                    //오류 검출 출력
+*/
+
+                    if(dyProcess[currentProcess[processor]].dyburstTime <= 0){//프로세스에 할당된 일의 종료
+                        returnProcess[dyProcess[currentProcess[processor]].processId-1].turnaroundTime = time - returnProcess[dyProcess[currentProcess[processor]].processId-1].arrivalTime +1;//turnaroundTime 계산
+
+                        Process trashProcess = new Process(-1,9999,9999);trashProcess.dyArrivalTime = 9999;//쓰레기 process객체 생성
+                        for(int i = currentProcess[processor];i<dyProcess.length -1; i++)
+                            dyProcess[i] = dyProcess[i+1];//시프트
+                        dyProcess[dyProcess.length-1] = trashProcess;//쓰레기process 삽입
+                        for(int i=0; i<4; i++)
+                            if(currentProcess[i] > currentProcess[processor] && currentProcess[i] != -1)
+                            currentProcess[i]--;
+
+
+                        currentProcess[processor] = -1;
+                    }
+                    else if(dyProcess[currentProcess[processor]].rrTime <= 0) {//할당된 rrTime의 종료
+                        dyProcess[currentProcess[processor]].rrTime = rrNum;
+                        int finding = -1;//삽입위치
+                        dyProcess[currentProcess[processor]].dyArrivalTime = time;//삽입할때 arrivaltime 지금 시간으로 조정
+
+                        for (int i = 0; i < dyProcess.length; i++){//삽입위치찾기
+                            if (dyProcess[i].dyArrivalTime > time+1) {
+                                finding = i;
+                                break;
+                            }
+                        }
+                        if(finding == -1 )//모두가 같은 arrivaltime을 가지고 있을때 finding을 맨뒤로 이동
+                            finding = dyProcess.length - trash;
+                        Process tmp = dyProcess[currentProcess[processor]];
+                        if(finding != 0) {
+                            for (int i = currentProcess[processor]; i < finding - 1; i++)//땡기고 삽입
+                                dyProcess[i] = dyProcess[i + 1];
+
+                            dyProcess[finding - 1] = tmp;
+
+                        }
+                        else if(finding == 0)
+                            dyProcess[currentProcess[processor]] = tmp;
+                        for(int i=0; i<4; i++) {//rrTime이 끝나서 dyprocess의 배열 순서가 뒤바뀔때 curretprocess[]안의 내용물도 배열 순서가 뒤바뀌는 것을 고려하여 수정
+                            if (currentProcess[i] == -1 )
+                                continue;
+                            else if(currentProcess[i] == 0)
+                                currentProcess[i] = finding - 1;
+
+                            currentProcess[i]--;
+                        }
+
+                        currentProcess[processor] = -1;
+
+                    }
+                }
+            }
+        }//for문 종료
+
+        for(int i=0; i<returnProcess.length; i++){
+            returnProcess[i].waitingTime = returnProcess[i].turnaroundTime - returnProcess[i].burstTime;//waitingTime 계산
+            returnProcess[i].normalizedTime = returnProcess[i].turnaroundTime / returnProcess[i].burstTime;//normalizedTime 계산
+        }
+        for(int i=0; i<returnProcess.length; i++)
+            process[i] = returnProcess[i];
+
+        for(int i=0; i<process.length;i++) {//사용했던 변수 초기화
+            process[i].dyArrivalTime = 0;
+            process[i].dyburstTime = 0;
+            process[i].rrTime = 0;
+        }
+    }
+}
+
+
+
+
+
